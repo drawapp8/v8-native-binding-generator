@@ -1,0 +1,29 @@
+{
+	"className":"Point",
+	"functions": {
+		"move" : {
+			"returnType" : "int",
+			"args"   : [
+				{"name":"x", "type":"int32_t"},
+				{"name":"y", "type":"int32_t"}
+			]
+		},
+		"add" : {
+			"returnType" : "string",
+			"args"   : [
+				{"name":"x", "type":"int32_t"},
+				{"name":"y", "type":"int32_t"}
+			]
+		}
+	},
+	"attributes" : [
+		{"name":"x", "type":"int32_t"},
+		{"name":"y", "type":"int32_t"},
+		{"name":"magic", "type":"string"}
+	],
+	"constants" : [
+		{"name":"DEFAULT_NAME", "type":"string", "value":"jim"},
+		{"name":"DEFAULT_X", "type":"int32_t", "value":10},
+		{"name":"DEFAULT_Y", "type":"int32_t", "value":100}
+	]
+}

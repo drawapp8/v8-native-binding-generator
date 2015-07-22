@@ -1,0 +1,54 @@
+{
+	"className":"global",
+	"functions": {
+		"httpGetJson" : {
+			"returnType" : "bool",
+			"args"   : [
+				{"name":"url", "type":"string"},
+				{"name":"onProgress", "type":"function"},
+				{"name":"onDone", "type":"function"}
+			]
+		},
+		"httpGet" : {
+			"returnType" : "bool",
+			"args"   : [
+				{"name":"url", "type":"string"},
+				{"name":"onProgress", "type":"function"},
+				{"name":"onDone", "type":"function"}
+			]
+		},
+		"httpPost" : {
+			"returnType" : "bool",
+			"args"   : [
+				{"name":"url", "type":"string"},
+				{"name":"data", "type":"string"},
+				{"name":"onProgress", "type":"function"},
+				{"name":"onDone", "type":"function"}
+			]
+		},
+		"httpRequest" : {
+			"returnType" : "bool",
+			"args"   : [
+				{"name":"url", "type":"string"},
+				{"name":"method", "type":"string"},
+				{"name":"header", "type":"string"},
+				{"name":"data", "type":"string"},
+				{"name":"onProgress", "type":"function"},
+				{"name":"onDone", "type":"function"}
+			]
+		},
+		"setTimeout" : {
+			"returnType" : "int32_t",
+			"args"   : [
+				{"name":"duration", "type":"int32_t"},
+				{"name":"onTimeout", "type":"function"}
+			]
+		}
+	},
+	"attributes" : [
+		{"name":"networkTimeout", "type":"int32_t"}
+	],
+	"constants" : [
+		{"name":"NETWORK_DEFAULT_TIMEOUT", "type":"int32_t", "value":3000}
+	]
+}
