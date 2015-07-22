@@ -1,7 +1,7 @@
 V8_SRC=/work/jsengine/v8/v8
-CFLAGS=-I$(V8_SRC) -I$(V8_SRC)/include -I../ -I../output
+CFLAGS=-I$(V8_SRC) -I$(V8_SRC)/include -I../ -I../src
 
-VPATH=../output:../src
+VPATH=../src
 OBJS=Point.o PointBinding.o GlobalBinding.o Global.o main.o Native.o
 LIBV8_ROOT=$(V8_SRC)/out/x64.debug/obj.target/tools/gyp
 LIBICU_ROOT=$(V8_SRC)/out/x64.debug/obj.target/third_party/icu

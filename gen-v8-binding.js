@@ -479,6 +479,11 @@ function generateConvertDataToNative(prefix, type, name, nativeName) {
 			content += prefix + 'NanCallback* ' + nativeName + ' = new NanCallback('+name+'.As<Function>());\n';
 			break;
 		}
+		default: {
+			var typeName = type.replace(/\*/, "");
+			content += prefix + 'Local<Object> '+nativeName+'Obj = '+name+'->ToObject();\n';
+			content += prefix + type + ' ' + nativeName + ' = ObjectWrap::Unwrap<'+typeName+'>('+nativeName+'Obj);\n';
+		}
 	}
 
 	return content;

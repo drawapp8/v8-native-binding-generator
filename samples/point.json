@@ -14,6 +14,12 @@
 				{"name":"x", "type":"int32_t"},
 				{"name":"y", "type":"int32_t"}
 			]
+		},
+		"copy" : {
+			"returnType" : "bool",
+			"args"   : [
+				{"name":"other", "type":"Point*"}
+			]
 		}
 	},
 	"attributes" : [
