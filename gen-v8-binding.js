@@ -211,9 +211,11 @@ function generateImplClassCpp(json) {
 	for(var i in json.attributes) {
 		var attrInfo = json.attributes[i];
 		content += attrInfo.type + " " + className + "::get" + upperFirstChar(attrInfo.name) + '() const {\n';
+		content += "\treturn this->_" + attrInfo.name + ";\n";
 		content += "}\n\n";
 
 		content += "void "+ className + "::set" + upperFirstChar(attrInfo.name) + '('+attrInfo.type + ' ' + attrInfo.name+') {\n';
+		content += "\tthis->_" + attrInfo.name + " = "+attrInfo.name+";\n";
 		content += "}\n\n";
 		content += "\n";
 	}
@@ -438,6 +440,9 @@ function generateBindingClassCpp(json) {
 		var str = generateNewType(constInfo.type, value);
 		content += '\tNanSetTemplate(proto, "'+constInfo.name + '", '+str+');\n';
 	}
+
+	content += "\n";
+	content +='\ttarget->Set(NanNew("'+className+'"), ctor->GetFunction());\n';
 
 	content += "\n}\n";
 

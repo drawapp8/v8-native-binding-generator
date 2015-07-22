@@ -127,4 +127,6 @@ void PointInitBinding(Handle<Object>& target) {
 	NanSetTemplate(proto, "DEFAULT_X", NanNew<Int32>(POINT_DEFAULT_X));
 	NanSetTemplate(proto, "DEFAULT_Y", NanNew<Int32>(POINT_DEFAULT_Y));
 
+	target->Set(NanNew("Point"), ctor->GetFunction());
+
 }
