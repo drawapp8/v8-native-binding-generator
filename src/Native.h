@@ -6,6 +6,6 @@
 
 using namespace v8;
 
-void nativeInitBinding(Handle<Object>& target);
+void nativeInitBinding(Handle<Object> target);
 
 #endif

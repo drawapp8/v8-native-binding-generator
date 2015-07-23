@@ -107,7 +107,7 @@ NAN_SETTER(PointSetMagic) {
 
 
 static Persistent<FunctionTemplate> constructor;
-void PointInitBinding(Handle<Object>& target) {
+void PointInitBinding(Handle<Object> target) {
 	NanScope();
 	Local<FunctionTemplate> ctor = NanNew<FunctionTemplate>(newPoint);
 	NanAssignPersistent(constructor, ctor);

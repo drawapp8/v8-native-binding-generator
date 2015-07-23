@@ -94,7 +94,7 @@ NAN_SETTER(GlobalSetNetworkTimeout) {
 }
 
 
-void GlobalInitBinding(Handle<Object>& target) {
+void GlobalInitBinding(Handle<Object> target) {
 	NanScope();
 	NAN_SET_METHOD(target, "httpGetJson", wrapHttpGetJson);
 	NAN_SET_METHOD(target, "httpGet", wrapHttpGet);

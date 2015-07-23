@@ -13,6 +13,6 @@
 #include <nan/nan.h>
 
 using namespace v8;
-void PointInitBinding(Handle<Object>& target);
+void PointInitBinding(Handle<Object> target);
 
 #endif

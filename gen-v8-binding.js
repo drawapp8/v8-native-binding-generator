@@ -254,7 +254,7 @@ function generateBindingH(json) {
 	content += "#include <nan/nan.h>\n\n";
 	content += 'using namespace v8;\n';
 
-	content += "void " + className + "InitBinding(Handle<Object>& target);\n";
+	content += "void " + className + "InitBinding(Handle<Object> target);\n";
 	
 	content += "\n#endif\n";
 
@@ -409,7 +409,7 @@ function generateBindingClassCpp(json) {
 	content += "\n";
 
 	content += '\nstatic Persistent<FunctionTemplate> constructor;\n';
-	content += "void " + className + "InitBinding(Handle<Object>& target) {\n";
+	content += "void " + className + "InitBinding(Handle<Object> target) {\n";
 	content += "\tNanScope();\n";
 	content += "\tLocal<FunctionTemplate> ctor = NanNew<FunctionTemplate>(new"+className+");\n";
 	content += "\tNanAssignPersistent(constructor, ctor);\n";
@@ -609,7 +609,7 @@ function generateBindingGlobalCpp(json) {
 	}
 	content += "\n";
 
-	content += "void " + className + "InitBinding(Handle<Object>& target) {\n";
+	content += "void " + className + "InitBinding(Handle<Object> target) {\n";
 	content +="\tNanScope();\n";
 	for(var funcName in json.functions) {
 		var funcInfo = json.functions[funcName];

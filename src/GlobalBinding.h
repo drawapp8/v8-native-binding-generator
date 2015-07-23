@@ -13,6 +13,6 @@
 #include <nan/nan.h>
 
 using namespace v8;
-void GlobalInitBinding(Handle<Object>& target);
+void GlobalInitBinding(Handle<Object> target);
 
 #endif
