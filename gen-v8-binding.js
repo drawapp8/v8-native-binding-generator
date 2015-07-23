@@ -278,7 +278,7 @@ function generateNewType(type, value) {
 			break;
 		}
 		case 'double': {
-			str = 'NanNew<Double>('+value+')';
+			str = 'NanNew<Number>('+value+')';
 			break;
 		}
 		case 'bool': {
