@@ -15,35 +15,18 @@ NAN_METHOD(wrapHttpGetJson) {
 	NanReturnValue(NanNew<Boolean>(retVal));
 }
 
-NAN_METHOD(wrapHttpGet) {
+NAN_METHOD(wrapSetTimeout) {
 	NanScope();
-	if(args.Length() < 3) {
-		printf("invalid arguments for httpGet.\n");
+	if(args.Length() < 2) {
+		printf("invalid arguments for setTimeout.\n");
 		return;
 	}
 
-	v8::String::Utf8Value url(args[0]);
-	NanCallback* onProgress = new NanCallback(args[1].As<Function>());
-	NanCallback* onDone = new NanCallback(args[2].As<Function>());
+	int32_t duration = args[0]->Int32Value();
+	NanCallback* onTimeout = new NanCallback(args[1].As<Function>());
 
-	bool retVal = httpGet(*url, onProgress, onDone);
-	NanReturnValue(NanNew<Boolean>(retVal));
-}
-
-NAN_METHOD(wrapHttpPost) {
-	NanScope();
-	if(args.Length() < 4) {
-		printf("invalid arguments for httpPost.\n");
-		return;
-	}
-
-	v8::String::Utf8Value url(args[0]);
-	v8::String::Utf8Value data(args[1]);
-	NanCallback* onProgress = new NanCallback(args[2].As<Function>());
-	NanCallback* onDone = new NanCallback(args[3].As<Function>());
-
-	bool retVal = httpPost(*url, *data, onProgress, onDone);
-	NanReturnValue(NanNew<Boolean>(retVal));
+	int32_t retVal = setTimeout(duration, onTimeout);
+	NanReturnValue(NanNew<Int32>(retVal));
 }
 
 NAN_METHOD(wrapHttpRequest) {
@@ -62,20 +45,6 @@ NAN_METHOD(wrapHttpRequest) {
 
 	bool retVal = httpRequest(*url, *method, *header, *data, onProgress, onDone);
 	NanReturnValue(NanNew<Boolean>(retVal));
-}
-
-NAN_METHOD(wrapSetTimeout) {
-	NanScope();
-	if(args.Length() < 2) {
-		printf("invalid arguments for setTimeout.\n");
-		return;
-	}
-
-	int32_t duration = args[0]->Int32Value();
-	NanCallback* onTimeout = new NanCallback(args[1].As<Function>());
-
-	int32_t retVal = setTimeout(duration, onTimeout);
-	NanReturnValue(NanNew<Int32>(retVal));
 }
 
 NAN_GETTER(GlobalGetNetworkTimeout) {

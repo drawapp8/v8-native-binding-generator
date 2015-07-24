@@ -12,6 +12,9 @@ int Point::move(int32_t x, int32_t y) {
 string Point::add(int32_t x, int32_t y) {
 }
 
+bool Point::copy(int32_t x, int32_t y) {
+}
+
 bool Point::copy(Point* other) {
 }
 

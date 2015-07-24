@@ -1,7 +1,8 @@
 {
 	"className":"global",
-	"functions": {
-		"httpGetJson" : {
+	"functions": [
+		{
+			"name":"httpGetJson",
 			"returnType" : "bool",
 			"args"   : [
 				{"name":"url", "type":"string"},
@@ -9,7 +10,8 @@
 				{"name":"onDone", "type":"function"}
 			]
 		},
-		"httpGet" : {
+		{
+			"name":"httpGet",
 			"returnType" : "bool",
 			"args"   : [
 				{"name":"url", "type":"string"},
@@ -17,7 +19,8 @@
 				{"name":"onDone", "type":"function"}
 			]
 		},
-		"httpPost" : {
+		{
+			"name":"httpPost",
 			"returnType" : "bool",
 			"args"   : [
 				{"name":"url", "type":"string"},
@@ -26,7 +29,8 @@
 				{"name":"onDone", "type":"function"}
 			]
 		},
-		"httpRequest" : {
+		{
+			"name":"httpRequest",
 			"returnType" : "bool",
 			"args"   : [
 				{"name":"url", "type":"string"},
@@ -37,14 +41,15 @@
 				{"name":"onDone", "type":"function"}
 			]
 		},
-		"setTimeout" : {
+		{
+			"name":"setTimeout",
 			"returnType" : "int32_t",
 			"args"   : [
 				{"name":"duration", "type":"int32_t"},
 				{"name":"onTimeout", "type":"function"}
 			]
 		}
-	},
+	],
 	"attributes" : [
 		{"name":"networkTimeout", "type":"int32_t"}
 	],

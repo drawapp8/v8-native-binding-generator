@@ -41,6 +41,20 @@ NAN_METHOD(PointAdd) {
 
 NAN_METHOD(PointCopy) {
 	NanScope();
+	if(args.Length() < 2) {
+		printf("invalid arguments for copy.\n");
+		return;
+	}
+	int32_t x = args[0]->Int32Value();
+	int32_t y = args[1]->Int32Value();
+
+	Point* obj = ObjectWrap::Unwrap<Point>(args.This());
+	bool retVal =  obj->copy(x, y);
+	NanReturnValue(NanNew<Boolean>(retVal));
+}
+
+NAN_METHOD(PointCopy) {
+	NanScope();
 	if(args.Length() < 1) {
 		printf("invalid arguments for copy.\n");
 		return;
@@ -121,6 +135,7 @@ void PointInitBinding(Handle<Object> target) {
 
 	NAN_SET_PROTOTYPE_METHOD(ctor, "move", PointMove);
 	NAN_SET_PROTOTYPE_METHOD(ctor, "add", PointAdd);
+	NAN_SET_PROTOTYPE_METHOD(ctor, "copy", PointCopy);
 	NAN_SET_PROTOTYPE_METHOD(ctor, "copy", PointCopy);
 
 	NanSetTemplate(proto, "DEFAULT_NAME", NanNew<String>(POINT_DEFAULT_NAME));

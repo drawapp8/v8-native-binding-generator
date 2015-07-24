@@ -1,27 +1,38 @@
 {
 	"className":"Point",
-	"functions": {
-		"move" : {
+	"functions": [
+		{
+			"name":"move",
 			"returnType" : "int",
 			"args"   : [
 				{"name":"x", "type":"int32_t"},
 				{"name":"y", "type":"int32_t"}
 			]
 		},
-		"add" : {
+		{
+			"name":"add",
 			"returnType" : "string",
 			"args"   : [
 				{"name":"x", "type":"int32_t"},
 				{"name":"y", "type":"int32_t"}
 			]
 		},
-		"copy" : {
+		{
+			"name":"copy",
+			"returnType" : "bool",
+			"args"   : [
+				{"name":"x", "type":"int32_t"},
+				{"name":"y", "type":"int32_t"}
+			]
+		},
+		{
+			"name":"copy",
 			"returnType" : "bool",
 			"args"   : [
 				{"name":"other", "type":"Point*"}
 			]
 		}
-	},
+	],
 	"attributes" : [
 		{"name":"x", "type":"int32_t"},
 		{"name":"y", "type":"int32_t"},

@@ -24,6 +24,7 @@ public:
 
 	int move(int32_t x, int32_t y);
 	string add(int32_t x, int32_t y);
+	bool copy(int32_t x, int32_t y);
 	bool copy(Point* other);
 
 	int32_t getX() const;

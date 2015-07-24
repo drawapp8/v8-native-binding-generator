@@ -61,8 +61,9 @@ function generateImplGlobalH(json) {
 	content += "\n";
 	content += generateConstants(json);
 	content += "\n";
-	for(var funcName in json.functions) {
-		var funcInfo = json.functions[funcName];
+	for(var i = 0; i < json.functions.length; i++) {
+		var funcInfo = json.functions[i];
+		var funcName = funcInfo.name;
 		var cppFuncName = funcInfo.cppName ? funcInfo.cppName : funcName;
 		content += generateFuncProtype(funcInfo, cppFuncName) + ';\n';
 	}
@@ -89,8 +90,10 @@ function generateImplGlobalCpp(json) {
 
 	content += '#include "' + className + '.h"\n\n';
 	
-	for(var funcName in json.functions) {
-		var funcInfo = json.functions[funcName];
+	for(var i = 0; i < json.functions.length; i++) {
+		var funcInfo = json.functions[i];
+		var funcName = funcInfo.name;
+
 		var cppFuncName = funcInfo.cppName ? funcInfo.cppName : funcName;
 		content += generateFuncProtype(funcInfo, cppFuncName) + ' {\n';
 		content += "}\n\n";
@@ -161,8 +164,9 @@ function generateImplClassH(json) {
 	content += "	~" + className + "();\n";
 	
 	content += "\n";
-	for(var funcName in json.functions) {
-		var funcInfo = json.functions[funcName];
+	for(var i = 0; i < json.functions.length; i++) {
+		var funcInfo = json.functions[i];
+		var funcName = funcInfo.name;
 		var cppFuncName = funcInfo.cppName ? funcInfo.cppName : funcName;
 		content += "\t" + generateFuncProtype(funcInfo, cppFuncName) + ';\n';
 	}
@@ -200,8 +204,9 @@ function generateImplClassCpp(json) {
 	content += "}\n\n";
 	
 	content += "\n";
-	for(var funcName in json.functions) {
-		var funcInfo = json.functions[funcName];
+	for(var i = 0; i < json.functions.length; i++) {
+		var funcInfo = json.functions[i];
+		var funcName = funcInfo.name;
 		var cppFuncName = funcInfo.cppName ? funcInfo.cppName : funcName;
 		content +=  funcInfo.returnType + " " + className + "::" + generateFuncProtype(funcInfo, cppFuncName, true) + ' {\n';
 		content += "}\n\n";
@@ -335,8 +340,9 @@ function generateBindingClassCpp(json) {
 	content += '\tNanReturnValue(args.This());\n';
 	content += '}\n\n';
 
-	for(var funcName in json.functions) {
-		var funcInfo = json.functions[funcName];
+	for(var ii = 0; ii < json.functions.length; ii++) {
+		var funcInfo = json.functions[ii];
+		var funcName = funcInfo.name;
 		var cppFuncName = funcInfo.cppName ? funcInfo.cppName : funcName;
 		var argc = funcInfo.args.length;
 
@@ -427,8 +433,9 @@ function generateBindingClassCpp(json) {
 	}
 
 	content += "\n";
-	for(var funcName in json.functions) {
-		var funcInfo = json.functions[funcName];
+	for(var i = 0; i < json.functions.length; i++) {
+		var funcInfo = json.functions[i];
+		var funcName = funcInfo.name;
 		var funcWrap = className + upperFirstChar(funcName);
 		content += '\tNAN_SET_PROTOTYPE_METHOD(ctor, "'+funcName+'", '+funcWrap+');\n';
 	}
@@ -543,8 +550,9 @@ function generateBindingGlobalCpp(json) {
 
 	content += '#include "' + className + '.h"\n\n';
 
-	for(var funcName in json.functions) {
-		var funcInfo = json.functions[funcName];
+	for(var i = 0; i < json.functions.length; i++) {
+		var funcInfo = json.functions[i];
+		var funcName = funcInfo.name;
 		var cppFuncName = funcInfo.cppName ? funcInfo.cppName : funcName;
 		var argc = funcInfo.args.length;
 		var wrapFuncName = 'wrap'+upperFirstChar(funcName);
@@ -611,8 +619,9 @@ function generateBindingGlobalCpp(json) {
 
 	content += "void " + className + "InitBinding(Handle<Object> target) {\n";
 	content +="\tNanScope();\n";
-	for(var funcName in json.functions) {
-		var funcInfo = json.functions[funcName];
+	for(var i = 0; i < json.functions.length; i++) {
+		var funcInfo = json.functions[i];
+		var funcName = funcInfo.name;
 		var wrapFuncName = 'wrap'+upperFirstChar(funcName);
 		var jsFuncName = funcInfo.jsName ? funcInfo.jsName : funcName;
 
