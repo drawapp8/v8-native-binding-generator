@@ -326,6 +326,19 @@ function generateCheckType(type) {
 	return str;
 }
 
+function clearFunctionInArr(functions, funcName) {
+	for(var i = 0; i < functions.length; i++) {
+		var funcInfo = functions[i];
+		if(!funcInfo) continue;
+
+		if(funcInfo.name === funcName) {
+			functions[i] = null;
+		}
+	}
+
+	return;
+}
+
 function generateBindingClassCpp(json) {
 	var content = "";
 	var className = upperFirstChar(json.className);
@@ -340,8 +353,60 @@ function generateBindingClassCpp(json) {
 	content += '\tNanReturnValue(args.This());\n';
 	content += '}\n\n';
 
-	for(var ii = 0; ii < json.functions.length; ii++) {
-		var funcInfo = json.functions[ii];
+	function generateOneFuncCall(funcInfo) {
+		var str = "";
+		var argc = funcInfo.args.length;
+		str += '\tif(args.Length() == ' + argc + ') {\n';
+		str += unwrapArgs(funcInfo, "\t\t") + '\n';
+		var returnType = funcInfo.returnType;
+		if(returnType && returnType !== 'void') {
+			str += '\t\t' + returnType + " retVal = " ;
+		}
+		else {
+			str += "\t\t";
+		}
+		
+		str += "obj->" + cppFuncName + '(' ;
+		
+		for(var i = 0; i < argc; i++) {
+			var argInfo = funcInfo.args[i];
+			if(i > 0) {
+				str += ', ';
+			}
+			str += argInfo.type === "string" ? "*"+argInfo.name : argInfo.name;
+		}
+		str += ');\n' ;
+
+		if(returnType && returnType !== 'void') {
+			str += generateSetReturnValue(funcInfo, "\t\t");
+		}
+		else {
+			str += "\t\tNanReturnUndefined();\n";
+		}
+		str += '\t\treturn;\n';
+		str += '\t}\n\n';
+
+		return str;
+	}
+
+	function generateFuncCall(functions, funcName) {
+		var str = "";
+		for(var i = 0; i < functions.length; i++) {
+			var funcInfo = functions[i];
+			if(!funcInfo) continue;
+			if(funcInfo.name === funcName) {
+				str += generateOneFuncCall(funcInfo);
+			}
+		}
+
+		return str;
+	}
+
+	var functions = JSON.parse(JSON.stringify(json.functions));
+	for(var ii = 0; ii < functions.length; ii++) {
+		var funcInfo = functions[ii];
+		if(!funcInfo) continue;
+
 		var funcName = funcInfo.name;
 		var cppFuncName = funcInfo.cppName ? funcInfo.cppName : funcName;
 		var argc = funcInfo.args.length;
@@ -349,41 +414,11 @@ function generateBindingClassCpp(json) {
 		var funcWrap = className + upperFirstChar(funcName);
 		content += 'NAN_METHOD('+funcWrap+') {\n';
 		content += '\tNanScope();\n';
-		content += '\tif(args.Length() < ' + argc + ') {\n';
-		content += '\t\tprintf("invalid arguments for '+funcName+'.\\n");\n';
-		content += '\t\treturn;\n';
-		content += '\t}\n';
-		content += unwrapArgs(funcInfo, "\t") + '\n';
-		
-		content += "\t"+className+"* obj = ObjectWrap::Unwrap<"+className+">(args.This());\n";
-
-		var returnType = funcInfo.returnType;
-		if(returnType && returnType !== 'void') {
-			content += '\t' + returnType + " retVal = " ;
-		}
-		else {
-			content += "\t";
-		}
-		
-		content += " obj->" + cppFuncName + '(' ;
-		
-		for(var i = 0; i < argc; i++) {
-			var argInfo = funcInfo.args[i];
-			if(i > 0) {
-				content += ', ';
-			}
-			content += argInfo.type === "string" ? "*"+argInfo.name : argInfo.name;
-		}
-		content += ');\n' ;
-
-		if(returnType && returnType !== 'void') {
-			content += generateSetReturnValue(funcInfo, "\t");
-		}
-		else {
-			content += "\tNanReturnUndefined();\n";
-		}
-		
+		content += "\t"+className+"* obj = ObjectWrap::Unwrap<"+className+">(args.This());\n\n";
+		content += generateFuncCall(functions, funcName);	
 		content += '}\n\n';
+
+		clearFunctionInArr(functions, funcName);
 	}
 	
 	for(var i in json.attributes) {
@@ -433,11 +468,15 @@ function generateBindingClassCpp(json) {
 	}
 
 	content += "\n";
-	for(var i = 0; i < json.functions.length; i++) {
-		var funcInfo = json.functions[i];
+	var functions = JSON.parse(JSON.stringify(json.functions));
+	for(var i = 0; i < functions.length; i++) {
+		var funcInfo = functions[i];
+		if(!funcInfo) continue;
+
 		var funcName = funcInfo.name;
 		var funcWrap = className + upperFirstChar(funcName);
 		content += '\tNAN_SET_PROTOTYPE_METHOD(ctor, "'+funcName+'", '+funcWrap+');\n';
+		clearFunctionInArr(functions, funcName);
 	}
 	content += "\n";
 	

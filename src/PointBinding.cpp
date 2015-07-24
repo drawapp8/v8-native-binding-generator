@@ -13,44 +13,56 @@ NAN_METHOD(newPoint) {
 
 NAN_METHOD(PointMove) {
 	NanScope();
-	if(args.Length() < 2) {
-		printf("invalid arguments for move.\n");
+	Point* obj = ObjectWrap::Unwrap<Point>(args.This());
+
+	if(args.Length() == 2) {
+		int32_t x = args[0]->Int32Value();
+		int32_t y = args[1]->Int32Value();
+
+		int retVal = obj->move(x, y);
+		NanReturnValue(NanNew<Int32>(retVal));
 		return;
 	}
-	int32_t x = args[0]->Int32Value();
-	int32_t y = args[1]->Int32Value();
 
-	Point* obj = ObjectWrap::Unwrap<Point>(args.This());
-	int retVal =  obj->move(x, y);
-	NanReturnValue(NanNew<Int32>(retVal));
 }
 
 NAN_METHOD(PointAdd) {
 	NanScope();
-	if(args.Length() < 2) {
-		printf("invalid arguments for add.\n");
+	Point* obj = ObjectWrap::Unwrap<Point>(args.This());
+
+	if(args.Length() == 2) {
+		int32_t x = args[0]->Int32Value();
+		int32_t y = args[1]->Int32Value();
+
+		string retVal = obj->add(x, y);
+		NanReturnValue(NanNew<String>(retVal.c_str()));
 		return;
 	}
-	int32_t x = args[0]->Int32Value();
-	int32_t y = args[1]->Int32Value();
 
-	Point* obj = ObjectWrap::Unwrap<Point>(args.This());
-	string retVal =  obj->add(x, y);
-	NanReturnValue(NanNew<String>(retVal.c_str()));
 }
 
 NAN_METHOD(PointCopy) {
 	NanScope();
-	if(args.Length() < 1) {
-		printf("invalid arguments for copy.\n");
+	Point* obj = ObjectWrap::Unwrap<Point>(args.This());
+
+	if(args.Length() == 2) {
+		int32_t x = args[0]->Int32Value();
+		int32_t y = args[1]->Int32Value();
+
+		bool retVal = obj->copy(x, y);
+		NanReturnValue(NanNew<Boolean>(retVal));
 		return;
 	}
-	Local<Object> otherObj = args[0]->ToObject();
-	Point* other = ObjectWrap::Unwrap<Point>(otherObj);
 
-	Point* obj = ObjectWrap::Unwrap<Point>(args.This());
-	bool retVal =  obj->copy(other);
-	NanReturnValue(NanNew<Boolean>(retVal));
+	if(args.Length() == 1) {
+		Local<Object> otherObj = args[0]->ToObject();
+		Point* other = ObjectWrap::Unwrap<Point>(otherObj);
+
+		bool retVal = obj->copy(other);
+		NanReturnValue(NanNew<Boolean>(retVal));
+		return;
+	}
+
 }
 
 NAN_GETTER(PointGetX) {

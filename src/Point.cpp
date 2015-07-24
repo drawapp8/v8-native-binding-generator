@@ -7,24 +7,15 @@ Point::~Point(){
 
 
 int Point::move(int32_t x, int32_t y) {
-	this->_x = x;
-	this->_y = y;
-
-	return 0;
 }
 
 string Point::add(int32_t x, int32_t y) {
-	this->_x += x;
-	this->_y += y;
+}
 
-	return "ok";
+bool Point::copy(int32_t x, int32_t y) {
 }
 
 bool Point::copy(Point* other) {
-	this->_x = other->getX();
-	this->_y = other->getY();
-
-	return true;
 }
 
 
