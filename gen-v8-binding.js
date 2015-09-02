@@ -614,9 +614,9 @@ function generateBindingGlobalCpp(json) {
 		
 		content += cppFuncName + '(' ;
 		
-		for(var i = 0; i < argc; i++) {
-			var argInfo = funcInfo.args[i];
-			if(i > 0) {
+		for(var k = 0; k < argc; k++) {
+			var argInfo = funcInfo.args[k];
+			if(k > 0) {
 				content += ', ';
 			}
 			content += argInfo.type === "string" ? "*"+argInfo.name : argInfo.name;

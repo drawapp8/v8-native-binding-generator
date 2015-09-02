@@ -1,0 +1,19 @@
+{
+	"className":"global",
+	"functions": [
+		{
+			"name":"atob",
+			"returnType" : "string",
+			"args"   : [
+				{"name":"url", "type":"string"}
+			]
+		},
+		{
+			"name":"btoa",
+			"returnType" : "string",
+			"args"   : [
+				{"name":"url", "type":"string"}
+			]
+		}
+	]
+}
