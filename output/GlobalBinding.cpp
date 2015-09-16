@@ -1,9 +1,10 @@
+#include "console.h"
 #include "Global.h"
 
 NAN_METHOD(wrapHttpGetJson) {
 	NanScope();
 	if(args.Length() < 3) {
-		printf("invalid arguments for httpGetJson.\n");
+		LOGI("invalid arguments for httpGetJson.\n");
 		return;
 	}
 
@@ -18,7 +19,7 @@ NAN_METHOD(wrapHttpGetJson) {
 NAN_METHOD(wrapHttpGet) {
 	NanScope();
 	if(args.Length() < 3) {
-		printf("invalid arguments for httpGet.\n");
+		LOGI("invalid arguments for httpGet.\n");
 		return;
 	}
 
@@ -33,7 +34,7 @@ NAN_METHOD(wrapHttpGet) {
 NAN_METHOD(wrapHttpPost) {
 	NanScope();
 	if(args.Length() < 4) {
-		printf("invalid arguments for httpPost.\n");
+		LOGI("invalid arguments for httpPost.\n");
 		return;
 	}
 
@@ -49,7 +50,7 @@ NAN_METHOD(wrapHttpPost) {
 NAN_METHOD(wrapHttpRequest) {
 	NanScope();
 	if(args.Length() < 6) {
-		printf("invalid arguments for httpRequest.\n");
+		LOGI("invalid arguments for httpRequest.\n");
 		return;
 	}
 
@@ -67,7 +68,7 @@ NAN_METHOD(wrapHttpRequest) {
 NAN_METHOD(wrapSetTimeout) {
 	NanScope();
 	if(args.Length() < 2) {
-		printf("invalid arguments for setTimeout.\n");
+		LOGI("invalid arguments for setTimeout.\n");
 		return;
 	}
 
@@ -89,7 +90,7 @@ NAN_SETTER(GlobalSetNetworkTimeout) {
 		int32_t nativeValue = value->Int32Value();
 		globalSetNetworkTimeout(nativeValue);
 	}else{
-		printf("invalid data type for Global.networkTimeout\n");
+		LOGI("invalid data type for Global.networkTimeout\n");
 	}
 }
 

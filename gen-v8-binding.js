@@ -343,6 +343,7 @@ function generateBindingClassCpp(json) {
 	var content = "";
 	var className = upperFirstChar(json.className);
 
+	content += '#include "console.h"\n';
 	content += '#include "'+className + ".h"+'"\n\n';
 	content += '#include "'+className + "Binding.h"+'"\n\n';
 
@@ -442,7 +443,7 @@ function generateBindingClassCpp(json) {
 		var nativeValue = attrInfo.type === "string" ? '*nativeValue' : 'nativeValue';
 		content += "\t\tobj->set"+upperFirstChar(attrInfo.name)+"("+nativeValue+");\n";
 		content += "\t}else{\n";
-		content += '\t\tprintf("invalid data type for '+className + "." + attrInfo.name+'\\n");\n';
+		content += '\t\tLOGI("invalid data type for '+className + "." + attrInfo.name+'\\n");\n';
 		content += "\t}\n";
 
 		content += "}\n\n";
@@ -587,6 +588,7 @@ function generateBindingGlobalCpp(json) {
 	var content = "";
 	var className = upperFirstChar(json.className);
 
+	content += '#include "console.h"\n';
 	content += '#include "' + className + '.h"\n\n';
 
 	for(var i = 0; i < json.functions.length; i++) {
@@ -599,7 +601,7 @@ function generateBindingGlobalCpp(json) {
 		content += 'NAN_METHOD('+wrapFuncName+') {\n';
 		content += "\tNanScope();\n";
 		content += '\tif(args.Length() < ' + argc + ') {\n';
-		content += '\t\tprintf("invalid arguments for '+funcName+'.\\n");\n';
+		content += '\t\tLOGI("invalid arguments for '+funcName+'.\\n");\n';
 		content += '\t\treturn;\n';
 		content += '\t}\n\n';
 		content += unwrapArgs(funcInfo, "\t") + '\n';
@@ -649,7 +651,7 @@ function generateBindingGlobalCpp(json) {
 		var nativeValue = attrInfo.type === "string" ? '*nativeValue' : 'nativeValue';
 		content += "\t\tglobalSet"+upperFirstChar(attrInfo.name)+"("+nativeValue+");\n";
 		content += "\t}else{\n";
-		content += '\t\tprintf("invalid data type for '+className + "." + attrInfo.name+'\\n");\n';
+		content += '\t\tLOGI("invalid data type for '+className + "." + attrInfo.name+'\\n");\n';
 		content += "\t}\n";
 
 		content += "}\n\n";

@@ -1,3 +1,4 @@
+#include "console.h"
 #include "Point.h"
 
 #include "PointBinding.h"
@@ -78,7 +79,7 @@ NAN_SETTER(PointSetX) {
 		int32_t nativeValue = value->Int32Value();
 		obj->setX(nativeValue);
 	}else{
-		printf("invalid data type for Point.x\n");
+		LOGI("invalid data type for Point.x\n");
 	}
 }
 
@@ -95,7 +96,7 @@ NAN_SETTER(PointSetY) {
 		int32_t nativeValue = value->Int32Value();
 		obj->setY(nativeValue);
 	}else{
-		printf("invalid data type for Point.y\n");
+		LOGI("invalid data type for Point.y\n");
 	}
 }
 
@@ -112,7 +113,7 @@ NAN_SETTER(PointSetMagic) {
 		v8::String::Utf8Value nativeValue(value);
 		obj->setMagic(*nativeValue);
 	}else{
-		printf("invalid data type for Point.magic\n");
+		LOGI("invalid data type for Point.magic\n");
 	}
 }
 
